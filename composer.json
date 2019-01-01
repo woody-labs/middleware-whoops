@@ -1,0 +1,27 @@
+{
+    "name": "woody/middleware-whoops",
+    "description": "",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Sebastien Malot",
+            "email": "sebastien@malot.fr"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "filp/whoops": "^2.3",
+        "woody/http-server-middleware": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Woody\\Middleware\\Whoops\\": "src"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "config": {
+        "sort-packages": true
+    }
+}
