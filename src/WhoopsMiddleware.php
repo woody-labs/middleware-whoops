@@ -5,13 +5,13 @@ namespace Woody\Middleware\Whoops;
 use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
-use Psr\Http\Server\MiddlewareInterface;
 use Psr\Http\Server\RequestHandlerInterface;
 use Whoops\Handler\JsonResponseHandler;
 use Whoops\Handler\PlainTextHandler;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Handler\XmlResponseHandler;
 use Whoops\Run;
+use Woody\Http\Server\Middleware\MiddlewareInterface;
 
 /**
  * Class WhoopsMiddleware
@@ -34,9 +34,18 @@ class WhoopsMiddleware implements MiddlewareInterface
     /**
      * Set the whoops instance.
      */
-    public function __construct(Run $whoops = null)
+    public function __construct()
     {
-        $this->whoops = $whoops;
+    }
+
+    /**
+     * @param bool $debug
+     *
+     * @return bool
+     */
+    public function isEnabled(bool $debug): bool
+    {
+        return $debug && class_exists('\Whoops\Run');
     }
 
     /**
