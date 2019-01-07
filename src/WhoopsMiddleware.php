@@ -6,6 +6,7 @@ use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Whoops\Handler\JsonResponseHandler;
 use Whoops\Handler\PlainTextHandler;
 use Whoops\Handler\PrettyPageHandler;
@@ -105,9 +106,11 @@ class WhoopsMiddleware implements MiddlewareInterface
     /**
      * Returns the content-type for the whoops instance
      */
-    protected static function createResponse(string $body, Run $whoops): ResponseInterface
+    protected static function createResponse(string $body, Run $whoops, \Throwable $t): ResponseInterface
     {
-        $response = new Response(500, [], $body);
+        $statusCode = ($t instanceof HttpException ? $t->getStatusCode() : 500);
+
+        $response = new Response($statusCode, [], $body);
 
         if (1 !== count($whoops->getHandlers())) {
             return $response;
