@@ -63,9 +63,6 @@ class WhoopsMiddleware implements MiddlewareInterface
      */
     public function process(ServerRequestInterface $request, RequestHandlerInterface $handler): ResponseInterface
     {
-        ob_start();
-        $level = ob_get_level();
-
         $whoops = $this->whoops ?: $this->getWhoopsInstance($request);
 
         $whoops->allowQuit(false);
@@ -79,13 +76,9 @@ class WhoopsMiddleware implements MiddlewareInterface
 
         try {
             $response = $handler->handle($request);
-        } catch (\Throwable $exception) {
-            $body = $whoops->handleException($exception);
+        } catch (\Throwable $t) {
+            $body = $whoops->handleException($t);
             $response = self::createResponse($body, $whoops);
-        } finally {
-            while (ob_get_level() >= $level) {
-                ob_end_clean();
-            }
         }
 
         if ($this->catchErrors) {
