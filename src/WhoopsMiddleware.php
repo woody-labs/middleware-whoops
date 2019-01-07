@@ -79,7 +79,7 @@ class WhoopsMiddleware implements MiddlewareInterface
             $response = $handler->handle($request);
         } catch (\Throwable $t) {
             $body = $whoops->handleException($t);
-            $response = self::createResponse($body, $whoops);
+            $response = self::createResponse($body, $whoops, $t);
         }
 
         if ($this->catchErrors) {
