@@ -6,12 +6,12 @@ use GuzzleHttp\Psr7\Response;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Server\RequestHandlerInterface;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 use Whoops\Handler\JsonResponseHandler;
 use Whoops\Handler\PlainTextHandler;
 use Whoops\Handler\PrettyPageHandler;
 use Whoops\Handler\XmlResponseHandler;
 use Whoops\Run;
+use Woody\Http\Message\Exception\HttpExceptionInterface;
 use Woody\Http\Server\Middleware\MiddlewareInterface;
 
 /**
@@ -38,7 +38,7 @@ class WhoopsMiddleware implements MiddlewareInterface
     public function __construct()
     {
     }
-
+https://filp.github.io/whoops/screen.png
     /**
      * @param bool $debug
      *
@@ -108,7 +108,7 @@ class WhoopsMiddleware implements MiddlewareInterface
      */
     protected static function createResponse(string $body, Run $whoops, \Throwable $t): ResponseInterface
     {
-        $statusCode = ($t instanceof HttpException ? $t->getStatusCode() : 500);
+        $statusCode = ($t instanceof HttpExceptionInterface ? $t->getStatusCode() : 500);
 
         $response = new Response($statusCode, [], $body);
 
