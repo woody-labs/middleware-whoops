@@ -17,3 +17,19 @@ composer require --dev filp/whoops
 ````
 
 
+## Implementation
+
+Any exception thrown in deeper middleware will be caught by Whoops to generate a dedicated page.
+
+````php
+// @todo: generate request
+
+// Dispatch request into middleware stack.
+$dispatcher = new Dispatcher();
+$dispatcher->pipe(new WhoopsMiddleware($logger));
+$dispatcher->pipe(new MyAddMiddleware());
+
+// @todo: add other middleware
+
+$response = $dispatcher->handle($request);
+````
