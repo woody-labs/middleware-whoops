@@ -28,15 +28,23 @@ class WhoopsMiddleware implements MiddlewareInterface
     protected $whoops;
 
     /**
+     * @var bool
+     */
+    protected $debugRequired;
+
+    /**
      * @var bool Whether catch errors or not
      */
     protected $catchErrors = true;
 
     /**
-     * Set the whoops instance.
+     * WhoopsMiddleware constructor.
+     *
+     * @param bool $debugRequired
      */
-    public function __construct()
+    public function __construct(bool $debugRequired = true)
     {
+        $this->debugRequired = $debugRequired;
     }
 
     /**
@@ -46,7 +54,12 @@ class WhoopsMiddleware implements MiddlewareInterface
      */
     public function isEnabled(bool $debug): bool
     {
-        return $debug && class_exists('\Whoops\Run');
+        if ($this->debugRequired && !$debug) {
+            // The debug mode is required.
+            return false;
+        }
+
+        return class_exists('\Whoops\Run');
     }
 
     /**

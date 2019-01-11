@@ -28,7 +28,7 @@ $debug = true;
 
 // Dispatch request into middleware stack.
 $dispatcher = new Dispatcher($debug);
-$dispatcher->pipe(new WhoopsMiddleware());
+$dispatcher->pipe(new WhoopsMiddleware(true));
 $dispatcher->pipe(new MyAppMiddleware());
 
 // @todo: add other middleware
