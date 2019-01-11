@@ -38,7 +38,7 @@ class WhoopsMiddleware implements MiddlewareInterface
     public function __construct()
     {
     }
-https://filp.github.io/whoops/screen.png
+
     /**
      * @param bool $debug
      *
