@@ -5,7 +5,7 @@ by helping you deal with errors and exceptions in a less painful way.
 
 https://filp.github.io/whoops/
 
-![https://filp.github.io/whoops/screen.png](Whoops)
+![Whoops](https://filp.github.io/whoops/screen.png)
 
 
 ## Installation
