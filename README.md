@@ -27,7 +27,7 @@ Any exception thrown in deeper middleware will be caught by Whoops to generate a
 // Dispatch request into middleware stack.
 $dispatcher = new Dispatcher();
 $dispatcher->pipe(new WhoopsMiddleware($logger));
-$dispatcher->pipe(new MyAddMiddleware());
+$dispatcher->pipe(new MyAppMiddleware());
 
 // @todo: add other middleware
 
